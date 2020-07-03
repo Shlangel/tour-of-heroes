@@ -18,13 +18,13 @@ export class HeroService {
 
   getHeroes(): Observable<Hero[]> {
     //TODO: send the message _after_ fetching the heroes
-    this.messageService.add('HeroService: fetched heroes');
+    this.messageService.openSnackBar('HeroService: fetched heroes', undefined);
     return of(HEROES);
   }
 
   getHero(id: number): Observable<Hero> {
     // TODO: send the message _after_ fetching the hero
-    this.messageService.add(`HeroService: fetched hero id=${id}`);
+    this.messageService.openSnackBar(`HeroService: fetched hero id=${id}`, undefined);
     return of(HEROES.find(hero => hero.id === id));
   }
 
@@ -32,6 +32,6 @@ export class HeroService {
 
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
-    this.messageService.add(`HeroService: ${message}`);
+    this.messageService.openSnackBar(`HeroService: ${message}`, undefined);
   }
 }
