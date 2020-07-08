@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { HeroService }  from '../hero.service';
 import { Hero } from '../hero';
+import { HeaderService } from '../header.service';
 
 @Component({
   selector: 'app-hero-detail',
@@ -16,17 +17,26 @@ export class HeroDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
-    private location: Location
+    private location: Location,
+    public headerService: HeaderService,
   ) { }
 
   ngOnInit(): void {
-    this.getHero();
+    this.getHero(); 
+  }
+
+  ngOnDestroy(): void {
+    this.headerService.cleanUpHeader();;
   }
 
   getHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
+      .subscribe(hero => {
+        this.hero = hero;
+        this.headerService.changeHeader(this.hero.name);
+      })
+      
   }
 
   goBack(): void {

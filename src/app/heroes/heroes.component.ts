@@ -2,13 +2,34 @@ import { Component, OnInit } from '@angular/core';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css'],
   animations: [
-    
+    trigger(
+      'inOutAnimation', 
+      [
+        transition(
+          ':enter', 
+          [
+            style({ marginLeft: -340 }),
+            animate('1s ease-out', 
+                    style({ marginLeft: 0 }))
+          ]
+        ),
+        transition(
+          ':leave', 
+          [
+            style({ marginLeft: 0 }),
+            animate('1s ease-in', 
+                    style({ marginLeft: -340 }))
+          ]
+        )
+      ]
+    )
   ]
 })
 export class HeroesComponent implements OnInit {
