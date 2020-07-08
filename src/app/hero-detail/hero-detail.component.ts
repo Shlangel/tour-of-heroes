@@ -26,7 +26,7 @@ export class HeroDetailComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.headerService.cleanUpHeader();;
+    this.headerService.setDefaultTitle();
   }
 
   getHero(): void {
@@ -34,9 +34,8 @@ export class HeroDetailComponent implements OnInit {
     this.heroService.getHero(id)
       .subscribe(hero => {
         this.hero = hero;
-        this.headerService.changeHeader(this.hero.name);
-      })
-      
+        this.headerService.title = `Tour of Heroes - ${hero.name}`;
+      });
   }
 
   goBack(): void {

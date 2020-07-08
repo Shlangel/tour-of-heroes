@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,17 +8,18 @@ export class HeaderService {
 
   constructor() { }
 
-  public title = 'Tour of Heroes'
+  private defaultTitle = 'Tour of Heroes';
+  public title$: BehaviorSubject<string> = new BehaviorSubject<string>(this.defaultTitle);
 
-  getHeader() {
-    return this.title;
+  get title(): string {
+    return this.title$.getValue();
   }
 
-  changeHeader(heroName) {
-    this.title += ' - ' + heroName; 
+  set title(value: string) {
+    this.title$.next(value);
   }
 
-  cleanUpHeader() {
-    this.title = 'Tour of Heroes'
+  setDefaultTitle() {
+    this.title$.next(this.defaultTitle);
   }
 }

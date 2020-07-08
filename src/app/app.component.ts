@@ -14,11 +14,9 @@ import { HeaderService } from './header.service'
 
 export class AppComponent {
 
-  constructor (private headerService: HeaderService) {
-  }
+  title$ = this.headerService.title$;
 
-  ngOnInit() {
-    this.headerService.getHeader();
+  constructor (private headerService: HeaderService) {
   }
  
   prepareRoute(outlet: RouterOutlet) {
